@@ -1,0 +1,34 @@
+.page-edit-form {
+  display: inline-block;
+  label {
+    text-align: right;
+    direction: rtl;
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+.page-edit-form-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 0 -5px;
+}
+
+.page-edit-form-button {
+  padding: 0 5px;
+  &:first-child {
+    width: 55%;
+  }
+  &:last-child {
+    width: 45%;
+  }
+  button {
+    width: 100%;
+    font-size: 18px;
+    padding: 6px 0;
+    cursor: pointer;
+    a {
+      text-decoration: none;
+    }
+  }
+}

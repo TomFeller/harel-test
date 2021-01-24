@@ -1,0 +1,32 @@
+.field {
+  margin-bottom: 10px;
+  &-control {
+    display: inline-block;
+  }
+  &-input {
+    text-align: right;
+    height: 30px;
+    border: 1px solid #000;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-warning {
+    color: red;
+    visibility: hidden;
+    font-size: 11px;
+    text-align: right;
+  }
+
+  &.error {
+    .field-input {
+      border: 2px solid red;
+    }
+    .field-warning {
+      visibility: visible;
+    }
+  }
+
+
+}
