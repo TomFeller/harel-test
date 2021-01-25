@@ -1,6 +1,6 @@
 import React, {useState,useReducer} from "react";
 import {Field} from "../../ui/field/field";
-import {API} from "../../../app/store";
+import {API} from "../../../store/actions/users-actions";
 
 const initialFormData = {
     mail: "",
