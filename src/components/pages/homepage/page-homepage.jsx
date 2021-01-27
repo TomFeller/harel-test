@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {UsersTable} from "../../users/users-table";
 import * as usersActions from "../../../store/actions/users-actions";
 
 export const PageHomepage = () => {
     const userDetails = localStorage.getItem("userDetails");
     const users = useSelector(state => state.users.allUsers);
+    const history= useHistory();
 
     const [filterValue, setFilterValue] = useState("");
     const [isLoading, setIsLoading] = useState(!users || users.length === 0);
@@ -13,7 +15,7 @@ export const PageHomepage = () => {
     const dispatch = useDispatch();
 
     if (!userDetails || !JSON.parse(userDetails).mail) {
-        window.location.href = "/login"
+        history.push("/login");
     }
 
     useEffect(() => {
@@ -26,7 +28,7 @@ export const PageHomepage = () => {
 
     const logout = () => {
         localStorage.clear();
-        window.location.href = "/login";
+        history.push("/login");
     };
 
     const filterUsers = (e) => {

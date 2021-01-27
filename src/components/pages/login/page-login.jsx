@@ -1,7 +1,7 @@
 import React, {useState,useReducer} from "react";
+import {useHistory} from "react-router-dom";
 import {Field} from "../../ui/field/field";
 import {API} from "../../../store/actions/users-actions";
-
 const initialFormData = {
     mail: "",
     firstName: "",
@@ -20,6 +20,9 @@ export const PageLogin = () => {
     const formReducer = (state, action) => {
         return {...state, [action.name]: action.value};
     };
+
+
+    const history = useHistory();
 
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useReducer(formReducer, initialFormData);
@@ -65,7 +68,8 @@ export const PageLogin = () => {
     };
 
     const handleLoginSuccess = () => {
-        window.location.href = "/";
+        // window.location.href = "/";
+        history.push("/");
     };
 
     return (
