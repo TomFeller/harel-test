@@ -4,7 +4,7 @@ import classNames from "classnames";
 import "./field.scss";
 
 export const Field = (
-    {type = "text", name, value="", onChange, placeholder, errorMessage, warningsActive}
+    {type = "text", label, name, value="", onChange, placeholder, errorMessage, warningsActive}
 ) => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -19,8 +19,8 @@ export const Field = (
     return (
         <div className={classNames("field", {error})}>
             <div className="field-control">
-                <input type="text"
-                       value={inputValue}
+                {label && <label>{label}</label>}
+                <input type={type}
                        defaultValue={inputValue}
                        name={name}
                        onChange={(e) => setInputValue(e.target.value)}

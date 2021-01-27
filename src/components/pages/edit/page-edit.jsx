@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from "react";
+import React, {useState, useEffect, useReducer} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {Field} from "../../ui/field/field";
@@ -9,9 +9,13 @@ import "./page-edit.scss";
 
 export const PageEdit = () => {
     const {id} = useParams();
-    const users = useSelector(state => state.users.allUsers);
-    const user = users.find(user => user.id === parseInt(id));
+    const user = useSelector(state => state.users.singleUser);
+    const [isLoading, setIsLoading] = useState(!user);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(usersActions.getSingleUser(id)).then(() => setIsLoading(false));
+    }, []);
 
     const formReducer = (state, action) => {
         if (action.type === "edit") {
@@ -42,18 +46,43 @@ export const PageEdit = () => {
                       warningsActive={warningsActive}
                       onChange={handleFieldChange}/>
     };
-    if (!user) {
+    if (isLoading || !user) {
         return "LOAIDNG"
     }
 
     const form = [
-        {value: user.firstName, name: "firstName", placeholder: "שם פרטי", errorMessage: "יש להזין שם פרטי"},
-        {value: user.lastName, name: "lastName", placeholder: "שם משפחה", errorMessage: "יש להזין שם משפחה"},
         {
+            value: user.firstName,
+            name: "firstName",
+            label: "שם פרטי",
+            placeholder: "שם פרטי",
+        }, {
+            value: user.lastName,
+            name: "lastName",
+            label: "שם משפחה",
+            placeholder: "שם משפחה",
+        },  {
+            value: user.email,
+            name: "email",
+            label: "כתובת מייל",
+            placeholder: "כתובת מייל",
+        },
+        {
+            value: user.phone,
+            name: "phone",
+            label: "טלפון",
+            placeholder: "טלפון",
+        },
+        {
+            value: user.accountName,
+            name: "accountName",
+            placeholder: "שם חשבון",
+            label: "שם חשבון",
+        }, {
             value: user.account,
             name: "account",
             placeholder: "חשבון בנק",
-            errorMessage: "יש להזין סיסמא",
+            label: "חשבון בנק",
             type: "password"
         },
     ];

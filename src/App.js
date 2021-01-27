@@ -10,6 +10,7 @@ import './App.css';
 const rootReducer = combineReducers({
     users: usersReducer
 });
+
 const reduxState = JSON.parse(localStorage.getItem('reduxState'));
 const persistedState = reduxState || {};
 const store = createStore(rootReducer, persistedState, applyMiddleware(ReduxThunk));

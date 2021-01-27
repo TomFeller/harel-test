@@ -54,3 +54,10 @@
   margin: 0 auto;
   padding: 0 10px;
 }
+
+.sorting-icon {
+  display: inline-block;
+  &.active {
+    transform: rotate(180deg);
+  }
+}

@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import _ from "lodash";
+import classNames from "classnames";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import "./users-table.scss";
@@ -10,6 +11,7 @@ export const UsersTable = ({filterValue = ""}) => {
 
     const [usersList, setUsersList] = useState(users);
     const [orderType, setOrderType] = useState("asc");
+    const [orderBy, setOrderBy] = useState("id");
 
     const filterUsers = (user) => {
         const firstName = user.firstName?.toLowerCase();
@@ -19,18 +21,27 @@ export const UsersTable = ({filterValue = ""}) => {
         return valuesToCheck.some(value => value?.toLowerCase().includes(filterValue));
     };
 
-    const orderBy = (orderBy) => {
+    const sorting = (name) => {
         setOrderType(orderType === "asc" ? "desc" : "asc");
         setUsersList(_.orderBy(users, [orderBy], [orderType]));
+        setOrderBy(name);
+    };
+
+    const SortingIcon = ({name}) => {
+        return <span className={classNames("sorting-icon", {active: orderBy === name})}>{`^`}</span>
+    };
+
+    const TableHead = ({name, label}) => {
+        return <th onClick={() => sorting(name)}>{label} <SortingIcon name={name}/></th>
     };
 
     const tableHead = (
         <tr>
-            <th onClick={() => orderBy("id")}>ID</th>
-            <th onClick={() => orderBy("firstName")}>Name</th>
-            <th onClick={() => orderBy("lastName")}>Last Name</th>
-            <th onClick={() => orderBy("date")}>Date</th>
-            <th onClick={() => orderBy("phone")}>Phone</th>
+            <TableHead name={"id"} label={"ID"}/>
+            <TableHead name={"firstName"} label={"First Name"}/>
+            <TableHead name={"lastName"} label={"Last Name"}/>
+            <TableHead name={"date"} label={"Date"}/>
+            <TableHead name={"phone"} label={"Phone"}/>
         </tr>
     );
 
