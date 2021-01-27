@@ -90,13 +90,17 @@ export const PageEdit = () => {
         <div id="page-edit">
             <form className="page-edit-form">
                 <label>פרטים:</label>
+
                 {form.map(renderField)}
+
                 <div className={"page-edit-form-buttons"}>
+
                     <div className={"page-edit-form-button"}>
                         <button onClick={handleSubmit}>
                             {status ? status === "saved" ? "נשמר" : "..." : "שמור"}
                         </button>
                     </div>
+
                     <div className={"page-edit-form-button"}>
                         <Link to={"/"}>
                             <button>
@@ -104,6 +108,7 @@ export const PageEdit = () => {
                             </button>
                         </Link>
                     </div>
+
                 </div>
             </form>
         </div>
